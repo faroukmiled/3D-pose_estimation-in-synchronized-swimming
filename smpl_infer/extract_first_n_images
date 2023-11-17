@@ -1,0 +1,31 @@
+import cv2
+import numpy as np
+import os
+n=10
+
+# Playing video from file:
+cap = cv2.VideoCapture('2022-CFJe-hiver-solo-qualif-duhaudt.mp4')
+
+try:
+    if not os.path.exists('split'):
+        os.makedirs('split')
+except OSError:
+    print ('Error: Creating directory of data')
+
+currentFrame = 0
+while(True) and currentFrame<n:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+
+    # Saves image of the current frame in jpg file
+    name = './split/img' + str(currentFrame) + '.jpg'
+    print ('Creating...' + name)
+    cv2.imwrite(name, frame)
+
+    # To stop duplicate images
+    currentFrame += 1
+
+# When everything done, release the capture
+cap.release()
+cv2.destroyAllWindows()
+
